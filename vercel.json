@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/api/tasks/index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/tasks/.*",
+        "dest": "src/api/tasks/index.js"
+      }
+    ],
+    "env": {
+      "MONGODB_URL": "mongodb://127.0.0.1:27017/tasksdb"
+    },
+    "timeout": 20
+  }
