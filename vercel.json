@@ -10,7 +10,6 @@
     {
       "src": "/api/tasks",
       "methods": ["GET"],
-      "timeout": 30,
       "dest": "api/index.js"
     }
   ],
