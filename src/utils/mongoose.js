@@ -7,7 +7,7 @@ const conn = {
 export const dbConnect = async () => {
   if (conn.isConnected) return;
 
-  const db = await connect(process.env.MONGODB_URL);
+  const db = await connect("mongodb://127.0.0.1:27017/tasksdb");
 
   conn.isConnected = db.connections[0].readyState;
 
