@@ -7,7 +7,7 @@ const conn = {
 export const dbConnect = async () => {
   if (conn.isConnected) return;
 
-  const db = await connect("mongodb+srv://daivymorales:WaIgpVo2quGVJzMh@cluster0.5loi8zd.mongodb.net/?retryWrites=true&w=majority");
+  const db = await connect(process.env.MONGODB_URL);
 
   conn.isConnected = db.connections[0].readyState;
 
