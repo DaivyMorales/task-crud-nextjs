@@ -10,7 +10,7 @@
     {
       "src": "/api/tasks",
       "methods": ["GET"],
-      "dest": "api/index.js"
+      "dest": "api/tasks/index.js"
     }
   ],
   "env": {
