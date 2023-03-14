@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: inter, sans-serif;
+}
+
+h1 {
+  @apply font-medium text-2xl;
+}

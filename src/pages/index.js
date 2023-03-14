@@ -1,8 +1,10 @@
-import React from 'react'
+
 
 const index = () => {
   return (
-    <div>index</div>
+    <div>
+      <h1>Hello tailwind</h1>
+    </div>
   )
 }
 
