@@ -1,4 +1,5 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
+import Category from "./Category";
 
 const taskSchema = new Schema(
   {
@@ -11,9 +12,12 @@ const taskSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
       trim: true,
       maxlength: [200, "Description must be less than 200 characters"],
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
     },
   },
   {

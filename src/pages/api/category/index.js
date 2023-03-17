@@ -1,8 +1,4 @@
-// import { dbConnect } from "../../../utils/mongoose";
-// import Task from "../../../models/Task";
-
 import { dbConnect } from "utils/mongoose";
-import Task from "models/Task";
 import Category from "models/Category";
 
 dbConnect();
@@ -13,20 +9,17 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const tasks = await Task.find();
-        return res.status(200).json(tasks);
+        const category = await Category.find();
+        return res.status(200).json(category);
       } catch (error) {
         res.status(500).json({ error: error.message });
       }
 
     case "POST":
       try {
-        const { title, description, nameCategory } = body;
-
-        const category = await Category.findOne({ name: nameCategory });
-        const newTask = new Task({ title, description, category });
-        const savedTask = await newTask.save();
-        return res.status(201).json(savedTask);
+        const newCategory = new Category(body);
+        const savedCategory = await newCategory.save();
+        return res.status(201).json(savedCategory);
       } catch (error) {
         res.status(500).json({ error: error.message });
       }

@@ -4,8 +4,51 @@
 
 body {
   font-family: inter, sans-serif;
+  background-color: #0c0c0c;
 }
 
 h1 {
-  @apply font-medium text-2xl;
+  @apply font-medium text-3xl text-white;
+}
+
+h2 {
+  @apply font-medium   text-lg text-white;
+}
+
+p {
+  @apply text-sm font-normal text-white;
+}
+
+.cardTask {
+  border-width: 0.9px;
+  @apply bg-black flex justify-start items-center flex-col py-16 rounded-lg px-4 shadow-md border-gray-500 hover:border-white cursor-pointer;
+}
+
+button {
+  @apply bg-white text-black text-xs font-medium p-2 rounded-lg;
+}
+
+.input-search {
+  border-width: 0.9px;
+  @apply border-gray-500  flex justify-start items-center gap-x-3 bg-black font-medium px-2 py-1 rounded-lg focus:border-gray-200;
+}
+
+.navInput:focus-within {
+  outline: none;
+}
+
+label {
+  @apply text-white text-lg;
+}
+
+.new-category-button {
+  @apply rounded-full p-1 bg-gray-900;
+}
+
+.new-category-input {
+  @apply rounded-full flex justify-center items-center p-1 h-6 w-20 cursor-pointer pl-2 text-center;
+}
+
+.new-category-input:focus-within {
+  outline: none;
 }
