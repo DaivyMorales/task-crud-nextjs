@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { HiCheck } from "react-icons/hi";
+import { useContext, useState } from "react";
+import { HiPlusCircle } from "react-icons/hi";
+import axios from "axios";
+import { StateContext } from "Context/StateContext";
 
 export default function CategoryForm({
   categoryShow,
   setCategoryShow,
   categories,
   setCategories,
-  onChange,
 }) {
+  const { task, setTask } = useContext(StateContext);
+
   const [formData, setFormData] = useState({
     name: "",
     color: "red",
@@ -20,7 +23,12 @@ export default function CategoryForm({
 
   const createCategory = async (category) => {
     try {
-      await axios.post("http://localhost:3000/api/category", category);
+      const response = await axios.post(
+        "http://localhost:3000/api/category",
+        category
+      );
+      setTask({ ...task, category: response.data._id });
+      setCategories([...categories, response.data]);
     } catch (error) {
       console.log(error);
     }
@@ -30,20 +38,18 @@ export default function CategoryForm({
       <div className=" flex gap-x-1 justify-center items-center">
         <input
           type="text"
-          className="new-category-input font-bold text-xs"
+          className="new-category-input font-medium text-xs"
           onChange={handleInputChange}
           value={formData.name}
         />
         <button
           onClick={async () => {
             setCategoryShow(!categoryShow);
-            setCategories([...categories, formData]);
-            onChange(formData.name);
             createCategory(formData);
           }}
           className="new-category-button"
         >
-          <HiCheck color="white" />
+          <HiPlusCircle size={20} />
         </button>
       </div>
     </div>

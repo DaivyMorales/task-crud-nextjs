@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CardCategory from "./CardCategory";
-import { HiOutlinePlus } from "react-icons/hi";
+import { HiOutlinePlus, HiHashtag } from "react-icons/hi";
 import CategoryForm from "Components/CategoryForm";
 
-export default function ListCategory({
-  category,
-  value,
-  onChange,
-  createCategory,
-}) {
+export default function ListCategory({ onChange }) {
   const [categories, setCategories] = useState([]);
   const [categoryShow, setCategoryShow] = useState(false);
+
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
+  // console.log(activeCategoryId);
+
+  const handleCategoryCardClick = (categoryId) => {
+    setActiveCategoryId(categoryId);
+  };
 
   const loadCategories = async () => {
     const response = await axios.get("http://localhost:3000/api/category");
@@ -19,23 +21,27 @@ export default function ListCategory({
     setCategories(data);
   };
 
+  console.log(categories);
+
   useEffect(() => {
     loadCategories();
   }, []);
 
   return (
     <div className=" w-full flex justify-center items-center gap-x-2">
+      <div className="flex justify-center items-center gap-x-1">
+        <HiHashtag />
       <h2 className="font-semibold text-sm">Categories:</h2>
+      </div>
 
       <div className="grid grid-cols-3 gap-1">
         {categories.map((category, index) => (
           <CardCategory
             key={category._id || index}
             category={category}
-            setCategories={setCategories}
             categories={categories}
-            value={value}
-            onChange={onChange}
+            onChange={handleCategoryCardClick}
+            activeCategoryId={activeCategoryId}
           />
         ))}
 
@@ -45,7 +51,6 @@ export default function ListCategory({
             categoryShow={categoryShow}
             categories={categories}
             setCategories={setCategories}
-            value={value}
             onChange={onChange}
           />
         ) : (
@@ -61,7 +66,7 @@ export default function ListCategory({
               setCategoryShow(!categoryShow);
             }}
           >
-            <HiOutlinePlus color="white" />
+            <HiOutlinePlus color="black" />
           </button>
         )}
       </div>

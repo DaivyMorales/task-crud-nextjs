@@ -10,6 +10,13 @@ const taskSchema = new Schema(
       trim: true,
       maxlength: [40, "Title must be less than 50 characters"],
     },
+    url:{
+      type: String,
+      required: [true, "Url is required"],
+      unique: true,
+      trim: true,
+      maxlength: [300, "Title must be less than 300 characters"],
+    },
     description: {
       type: String,
       trim: true,

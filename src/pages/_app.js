@@ -1,10 +1,13 @@
 import "../styles/main.css";
 import Layout from "../Components/Layout";
+import { StateProvider } from "Context/StateContext";
 
-export default function App({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <StateProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </StateProvider>
   );
 }

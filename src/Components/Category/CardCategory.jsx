@@ -1,14 +1,18 @@
 import { motion } from "framer-motion";
-import { HiXCircle } from "react-icons/hi";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { StateContext } from "Context/StateContext";
 
 export default function CardCategory({
   category,
   setCategories,
   categories,
   onChange,
+  activeCategoryId,
 }) {
+  const { task, setTask, categoryCurrent, setCategoryCurrent } =
+    useContext(StateContext);
+
   const [categoryHover, setCategoryHover] = useState(false);
   const [click, setClick] = useState(false);
 
@@ -19,35 +23,28 @@ export default function CardCategory({
     setCategories(categories.filter((category) => category._id !== id));
   };
 
-  // const [selectedCategory, setSelectedCategory] = useState("");
-
-  // const handleCategorySelection = (event) => {
-  //   const newCategory = event.target.value;
-  //   setSelectedCategory(newCategory);
-  //   onChange(newCategory); // Llama la función onChange pasada como prop con la nueva categoría seleccionada
-  // };
-
   return (
     <motion.div
+      className="box-category border-gray-400 rounded-full flex justify-center items-center p-1 h-6 w-20 cursor-pointer hover:border-black hover:bg-white "
       whileHover={{ scale: 0.99 }}
       whileTap={{
         scale: 0.8,
       }}
       onMouseEnter={() => setCategoryHover(!categoryHover)}
       onMouseLeave={() => setCategoryHover(!categoryHover)}
-      // style={{
-      //   backgroundColor: "gray",
-      // }}
-      className="border-2 border-gray-700 rounded-full flex justify-center items-center p-1 h-6 w-20 cursor-pointer hover:border-black hover:bg-white "
       key={category._id}
-      style={click ? { backgroundColor: "White" } : {}}
+      style={
+        task.category === category._id
+          ? { backgroundColor: "black", color: "white", borderWidth: "0px" }
+          : {}
+      }
       onClick={() => {
-        // deleteCategory(category._id)
-        setClick(!click);
         onChange(category.name);
+        setClick(!click);
+        setTask({ ...task, category: category._id });
       }}
     >
-      <p className="font-bold text-xs text-gray-700 hover:text-black ">
+      <p className="font-bold text-xs text-gray-500 hover:text-black ">
         {category.name}
       </p>
     </motion.div>

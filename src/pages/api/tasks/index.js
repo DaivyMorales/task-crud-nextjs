@@ -21,10 +21,10 @@ export default async function handler(req, res) {
 
     case "POST":
       try {
-        const { title, description, nameCategory } = body;
+        const { title, url, description } = body;
 
-        const category = await Category.findOne({ name: nameCategory });
-        const newTask = new Task({ title, description, category });
+        const category = await Category.findOne({ _id: body.category });
+        const newTask = new Task({ title, url, description, category });
         const savedTask = await newTask.save();
         return res.status(201).json(savedTask);
       } catch (error) {

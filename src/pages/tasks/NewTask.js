@@ -1,23 +1,45 @@
-import { Formik, Form, Field } from "formik";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
-import CategoryForm from "Components/CategoryForm";
+import { Formik, Form, Field } from "formik";
+import { useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 import ListCategory from "Components/Category/ListCategory";
+import { StateContext } from "Context/StateContext";
+import { HiCursorClick, HiDocumentSearch, HiPuzzle } from "react-icons/hi";
 
 const NewTask = () => {
-  const { push, query } = useRouter();
+  const { push, query, replace, asPath } = useRouter();
 
-  const [nameCategory, setNameCategory] = useState("Without Type");
+  const { task, setTask, myState, setMyState } = useContext(StateContext);
 
-  const [task, setTask] = useState({
-    title: "",
-    description: "",
-    nameCategory: nameCategory,
-  });
+  console.log("task", task);
 
-  const handleCategoryChange = (categoryValue) => {
-    setNameCategory(categoryValue);
+  const handleTitleChange = (event) => {
+    const newTask = {
+      ...task,
+      title: event.target.value,
+    };
+    setTask(newTask);
+  };
+
+  const handleUrlChange = (event) => {
+    const newTask = {
+      ...task,
+      url: event.target.value,
+    };
+    setTask(newTask);
+  };
+
+  const handleDescriptionChange = (event) => {
+    const newTask = {
+      ...task,
+      description: event.target.value,
+    };
+    setTask(newTask);
+  };
+
+  const deleteTask = async (id) => {
+    const result = await axios.delete(`http://localhost:3000/api/tasks/${id}`);
+    console.log(result);
   };
 
   const createTask = async (task) => {
@@ -26,6 +48,8 @@ const NewTask = () => {
         "http://localhost:3000/api/tasks",
         task
       );
+
+      setMyState([...myState, response.data]);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -51,19 +75,23 @@ const NewTask = () => {
     const data = response.data;
     setTask({
       title: data.title,
+      url: data.url,
       description: data.description,
+      category: data.category,
     });
   };
 
   useEffect(() => {
-    if (query.id) getTask();
+    if (query.id) {
+      getTask();
+    }
   }, []);
 
   return (
-    <div className=" h-screen flex flex-col justify-center gap-y-4 items-center">
-      <h1 className="font-bold">
+    <div className=" flex flex-col h-screen justify-center -mt-16 items-center">
+      {/* <h1 className="font-bold">
         {query.id ? "Update Task" : "Save your URL!"}
-      </h1>
+      </h1> */}
       <Formik
         enableReinitialize={true}
         initialValues={task}
@@ -72,47 +100,100 @@ const NewTask = () => {
             updateTask(values);
           } else {
             createTask(values);
+            console.log("crear");
           }
+          resetForm();
         }}
       >
         {({ values, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             {console.log("values", values)}
-            <div className="grid grid-cols-3 gap-3">
-              <label className=" ">URL</label>
-              <input
-                className="col-span-2 bg-black text-white font-gray-300 pr-1 pl-1 rounded-lg py-2 placeholder:text-gray-800 font-medium text-sm"
-                type="text"
-                name="title"
-                placeholder="www.anypage.co"
-                onChange={handleChange}
-                value={values.title}
-              />
-              <label className=" ">Description</label>
-              <textarea
-                className="col-span-2 bg-black text-white font-gray-300 pr-1 pl-1 rounded-lg py-2 placeholder:text-gray-800 font-medium text-sm"
-                name="description"
-                placeholder="My description"
-                onChange={handleChange}
-                value={values.description}
-              />
-              <div className="col-span-3">
+            <div className="grid grid-cols-1  gap-x-3 gap-y-5 ">
+              <div className="flex flex-col  gap-y-1">
+                <div className="flex justify-start items-center gap-x-1">
+                  <HiDocumentSearch color="black" />
+                  <label>Title</label>
+                </div>
+                <input
+                  className="url-input"
+                  type="text"
+                  name="title"
+                  placeholder="Anypage"
+                  onChange={(event) => {
+                    handleChange(event);
+                    handleTitleChange(event);
+                  }}
+                  value={values.title}
+                />
+              </div>
+              <div className="flex flex-col gap-y-1  ">
+                <div className="flex justify-start items-center gap-x-1">
+                  <HiCursorClick color="black" />
+                  <label>Url</label>
+                </div>
+                <input
+                  className="url-input "
+                  type="text"
+                  name="url"
+                  placeholder="www.anypage.co"
+                  onChange={(event) => {
+                    handleChange(event);
+                    handleUrlChange(event);
+                  }}
+                  value={values.url}
+                />
+              </div>
+              <div className="flex  flex-col  gap-y-1 ">
+                <div className="flex justify-start items-center gap-x-1">
+                  <HiPuzzle color="black" />
+                  <label>Notes <span className="text-gray-500">(Optional)</span> </label>
+                </div>
+                <textarea
+                  className="url-input"
+                  name="description"
+                  placeholder="Why you save this url?"
+                  onChange={(event) => {
+                    handleChange(event);
+                    handleDescriptionChange(event);
+                  }}
+                  value={values.description}
+                />
+              </div>
+              <div className="">
                 <Field name="nameCategory">
-                  {({ field, form }) => (
-                    <ListCategory onChange={handleCategoryChange} />
-                  )}
+                  {({ field, form }) => <ListCategory />}
                 </Field>
               </div>
 
-              <button
-                className="col-start-2 bg-white text-black text-xs font-bold p-2 rounded-lg"
-                type="submit"
-                onClick={() => {
-                  push("/");
-                }}
-              >
-                Enviar
-              </button>
+              <div className="flex justify-center">
+                <button
+                  style={
+                    task.url.length > 0
+                      ? { backgroundColor: "black", cursor: "pointer" }
+                      : { backgroundColor: "gray", cursor: "no-drop" }
+                  }
+                  className=" bg-black text-white text-sm font-normal py-3 w-32 rounded-lg shadow-2xl"
+                  type="submit"
+                  onClick={() => {
+                    push("/");
+                    replace(asPath);
+                  }}
+                >
+                  Create
+                </button>
+              </div>
+              {query.id && (
+                <button
+                  className=" bg-[#ff0000] text-white text-xs font-semibold p-2 rounded-lg"
+                  type="submit"
+                  onClick={() => {
+                    deleteTask(query.id);
+                    push("/");
+                  }}
+                >
+                  Eliminar
+                </button>
+              )}
             </div>
           </Form>
         )}

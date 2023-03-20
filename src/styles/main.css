@@ -4,24 +4,24 @@
 
 body {
   font-family: inter, sans-serif;
-  background-color: #0c0c0c;
+  background-color: white;
+  color: black;
 }
 
 h1 {
-  @apply font-medium text-3xl text-white;
+  @apply font-bold text-3xl text-black;
 }
 
 h2 {
-  @apply font-medium   text-lg text-white;
+  @apply font-black text-lg text-black;
 }
 
 p {
-  @apply text-sm font-normal text-white;
+  @apply text-sm font-normal text-black;
 }
 
 .cardTask {
-  border-width: 0.9px;
-  @apply bg-black flex justify-start items-center flex-col py-16 rounded-lg px-4 shadow-md border-gray-500 hover:border-white cursor-pointer;
+  @apply bg-white text-black flex justify-start items-center flex-col py-16 rounded-lg px-10 shadow-md border-gray-500 hover:border-white cursor-pointer;
 }
 
 button {
@@ -30,19 +30,24 @@ button {
 
 .input-search {
   border-width: 0.9px;
-  @apply border-gray-500  flex justify-start items-center gap-x-3 bg-black font-medium px-2 py-1 rounded-lg focus:border-gray-200;
+  @apply border-gray-500  flex justify-start items-center gap-x-3 bg-white font-medium px-2  py-2 rounded-lg focus:border-gray-200;
 }
 
 .navInput:focus-within {
   outline: none;
 }
 
+.input-form:focus-within {
+  outline: none;
+}
+
 label {
-  @apply text-white text-lg;
+  @apply text-black text-sm font-semibold;
 }
 
 .new-category-button {
-  @apply rounded-full p-1 bg-gray-900;
+  border-width: 0.9px;
+  @apply rounded-full p-1 border-black  ;
 }
 
 .new-category-input {
@@ -51,4 +56,21 @@ label {
 
 .new-category-input:focus-within {
   outline: none;
+}
+
+.button-conexions {
+  @apply bg-white font-semibold cursor-pointer flex justify-center items-center px-9 py-3 rounded-lg gap-x-2 hover:bg-gray-300;
+}
+
+h3 {
+  @apply text-gray-500 font-medium text-sm;
+}
+
+.url-input {
+  border-width: 1px;
+  @apply input-form col-span-3  border-gray-400  pl-2 rounded-lg py-2 font-medium bg-white text-black  pr-1  placeholder:text-gray-400  text-sm;
+}
+
+.box-category:hover {
+  border-width: 0.9px;
 }
