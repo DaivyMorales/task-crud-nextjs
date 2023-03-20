@@ -24,7 +24,7 @@ export default function CategoryForm({
   const createCategory = async (category) => {
     try {
       const response = await axios.post(
-        "https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/category",
+        "https://task-crud-nextjs.vercel.app/api/category",
         category
       );
       setTask({ ...task, category: response.data._id });
