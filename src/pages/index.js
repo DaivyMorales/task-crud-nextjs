@@ -31,7 +31,7 @@ export default function index({ tasks }) {
             onChange={handleNavbar}
           />
         </div>
-        <button >Ver</button>
+        <button>Ver</button>
       </div>
       <div>
         <div
@@ -58,7 +58,9 @@ export default function index({ tasks }) {
 }
 
 export const getServerSideProps = async (ctx) => {
-  const res = await fetch("http://localhost:3000/api/tasks");
+  const res = await fetch(
+    "https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks"
+  );
   const tasks = await res.json();
   return {
     props: {
