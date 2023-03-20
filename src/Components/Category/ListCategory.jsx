@@ -28,7 +28,7 @@ export default function ListCategory({ onChange }) {
   }, []);
 
   return (
-    <div className=" w-full flex justify-center items-center gap-x-2">
+    <div className=" w-full flex flex-col  justify-start items-start gap-y-2">
       <div className="flex justify-center items-center gap-x-1">
         <HiHashtag />
       <h2 className="font-semibold text-sm">Categories:</h2>

@@ -1,6 +1,6 @@
 import { StateContext } from "Context/StateContext";
 import { useContext, useEffect, useState } from "react";
-import CardTask from "./tasks/CardTask";
+import CardTask from "../Components/CardTask";
 import { AiOutlineSearch } from "react-icons/ai";
 import NewTask from "./tasks/NewTask";
 
