@@ -9,8 +9,6 @@ export default function TaskDetail({ task }) {
 
   const router = useRouter();
 
- 
-
   return (
     <div className=" flex justify-center items-center flex-col">
       <div
@@ -61,7 +59,9 @@ export default function TaskDetail({ task }) {
 }
 
 export async function getServerSideProps({ query: { id } }) {
-  const result = await axios.get(`http://localhost:3000/api/tasks/${id}`);
+  const result = await axios.get(
+    `https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks/${id}`
+  );
 
   if (result.status === 200) {
     return {

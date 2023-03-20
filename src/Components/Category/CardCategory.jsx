@@ -18,7 +18,7 @@ export default function CardCategory({
 
   const deleteCategory = async (id) => {
     const response = await axios.delete(
-      `http://localhost:3000/api/category/${id}`
+      `https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/category/${id}`
     );
     setCategories(categories.filter((category) => category._id !== id));
   };

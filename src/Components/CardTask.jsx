@@ -16,7 +16,7 @@ const CardTask = ({ task }) => {
 
   const loadCategory = async (categoryId) => {
     const response = await axios.get(
-      `http://localhost:3000/api/category/${categoryId}`
+      `https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/category/${categoryId}`
     );
 
     setCategory(response.data);

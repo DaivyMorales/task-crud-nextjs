@@ -16,7 +16,7 @@ export default function ListCategory({ onChange }) {
   };
 
   const loadCategories = async () => {
-    const response = await axios.get("http://localhost:3000/api/category");
+    const response = await axios.get("https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/category");
     const data = response.data;
     setCategories(data);
   };
