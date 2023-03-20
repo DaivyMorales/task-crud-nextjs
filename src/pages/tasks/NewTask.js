@@ -38,14 +38,14 @@ const NewTask = () => {
   };
 
   const deleteTask = async (id) => {
-    const result = await axios.delete(`http://localhost:3000/api/tasks/${id}`);
+    const result = await axios.delete(`https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks/${id}`);
     console.log(result);
   };
 
   const createTask = async (task) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/tasks",
+        "https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks",
         task
       );
 
@@ -59,7 +59,7 @@ const NewTask = () => {
   const updateTask = async (task) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/tasks/${query.id}`,
+        `https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks/${query.id}`,
         task
       );
       console.log(response);
@@ -70,7 +70,7 @@ const NewTask = () => {
 
   const getTask = async () => {
     const response = await axios.get(
-      `http://localhost:3000/api/tasks/` + query.id
+      `https://task-crud-nextjs-f13i7k2w0-daivymorales-s-team.vercel.app/api/tasks/` + query.id
     );
     const data = response.data;
     setTask({
