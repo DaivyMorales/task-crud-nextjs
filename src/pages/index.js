@@ -31,7 +31,6 @@ export default function index({ tasks }) {
             onChange={handleNavbar}
           />
         </div>
-        <button>Ver</button>
       </div>
       <div>
         <div
